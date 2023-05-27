@@ -1,6 +1,6 @@
 #include "AI.h"
 
-AI::AI(PlayerColor player, Board *board)
+AI::AI(PlayerColor player, const Board& board)
     : QObject{nullptr}, player{player}, board{board}
 {
 

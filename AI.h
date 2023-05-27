@@ -26,22 +26,29 @@ class AI : public QObject
     PlayerColor player;
 
     /**
-     * @brief pointer to the main board
+     * @brief reference to the main board
      */
-    Board *board;
+    const Board &board;
 
     /**
      * @brief search algorith parameters
      */
     AlgorithmParameters parameters;
 
+    /**
+     * @brief calculates the score for the passed board using heuristics
+     * @param board: the board for calcualting score
+     * @return the score for the passed board
+     */
+    double getBoardScore(const Board &board);
+
 public:
     /**
      * @brief AI Constructor
      * @param player: AI player color
-     * @param board: pointer to the main board
+     * @param board: reference to the main board
      */
-    AI(PlayerColor player, Board *board);
+    AI(PlayerColor player, const Board &board);
 
     /**
      * @brief sets the difficulty level by using a pre-defined set of parameters for each level
