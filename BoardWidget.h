@@ -3,11 +3,20 @@
 
 #include <QWidget>
 
+#include <Board.h>
+
 class BoardWidget : public QWidget
 {
     Q_OBJECT
+
+    Board &board;
+
 public:
-    explicit BoardWidget(QWidget *parent = nullptr);
+    BoardWidget(Board &board, QWidget *parent = nullptr);
+
+    void paintEvent(QPaintEvent *event) override;
+
+    void mousePressEvent(QMouseEvent *event) override;
 
 signals:
 
