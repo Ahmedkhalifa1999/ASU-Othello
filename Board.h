@@ -32,7 +32,9 @@ class Board
      * @param column
      * @return
      */
-    std::vector<Move> getValidMovesAroundDisk(int row, int column);
+    std::vector<Move> getValidMovesAroundDisk(unsigned int row, unsigned int column);
+
+    bool isValidMove(unsigned int row, unsigned int column, PlayerColor player);
 
 public:
 
@@ -59,7 +61,7 @@ public:
      * @param move: Move choosen from valid moves
      * @return return false if the passed move is invalid and true if it is
      */
-    bool doMove(Move move);
+    bool doMove(Move move, PlayerColor player);
 
 };
 
