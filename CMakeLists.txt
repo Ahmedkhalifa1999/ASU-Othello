@@ -18,7 +18,6 @@ set(PROJECT_SOURCES
         main.cpp
         MainWindow.cpp
         MainWindow.h
-        MainWindow.ui
         Board.cpp
         Board.h
         AI.cpp

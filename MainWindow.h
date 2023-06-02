@@ -2,10 +2,12 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QDockWidget>
 #include <QThread>
 
 #include <AI.h>
 #include <Board.h>
+#include <BoardWidget.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -19,17 +21,27 @@ class MainWindow : public QMainWindow
 
     QThread AI_Thread;
 
+    AI whiteAI;
+
+    AI blackAI;
+
+    QDockWidget whitePlayerSettings;
+
+    QDockWidget blackPlayerSettings;
+
+    BoardWidget boardWidget;
+
 public:
     MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
-
-private:
-    Ui::MainWindow *ui;
 
 public slots:
-    void nextMoveComputed(Move move);
+    void whiteNextMoveComputed(Move move);
+
+    void blackNextMoveComputed(Move move);
 
 signals:
-    void computeNextMove();
+    void whiteComputeNextMove();
+
+    void blackComputeNextMove();
 };
 #endif // MAINWINDOW_H
