@@ -15,8 +15,8 @@ typedef enum {
 } PlayerColor;
 
 typedef struct {
-    unsigned int x;
-    unsigned int y;
+    unsigned int row;
+    unsigned int column;
 } Move;
 
 class Board
@@ -24,7 +24,18 @@ class Board
     /**
      * @brief 8-by-8 matrix reprenting the board
      */
-    std::vector<std::vector<BoardSquareState>> board;
+    std::vector<std::vector<BoardSquareState>> board = std::vector<std::vector<BoardSquareState>>(8, std::vector<BoardSquareState>(8, EMPTY_SQUARE));
+
+    /**
+     * @brief getValidMovesAroundDisk
+     * @param row
+     * @param column
+     * @return
+     */
+    std::vector<Move> getValidMovesAroundDisk(unsigned int row, unsigned int column);
+
+    bool isValidMove(unsigned int row, unsigned int column, PlayerColor player);
+
 public:
 
     /**
@@ -50,7 +61,7 @@ public:
      * @param move: Move choosen from valid moves
      * @return return false if the passed move is invalid and true if it is
      */
-    bool doMove(Move move);
+    bool doMove(Move move, PlayerColor player);
 
 };
 
