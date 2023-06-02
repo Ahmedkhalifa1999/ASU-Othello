@@ -23,6 +23,8 @@ set(PROJECT_SOURCES
         Board.h
         AI.cpp
         AI.h
+        BoardWidget.cpp
+        BoardWidget.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
