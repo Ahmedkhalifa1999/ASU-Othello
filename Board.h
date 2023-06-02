@@ -24,7 +24,7 @@ class Board
     /**
      * @brief 8-by-8 matrix reprenting the board
      */
-    std::vector<std::vector<BoardSquareState>> board;
+    std::vector<std::vector<BoardSquareState>> board = std::vector<std::vector<BoardSquareState>>(8, std::vector<BoardSquareState>(8, EMPTY_SQUARE));
 public:
 
     /**
