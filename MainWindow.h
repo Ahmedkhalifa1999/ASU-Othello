@@ -4,6 +4,14 @@
 #include <QMainWindow>
 #include <QDockWidget>
 #include <QThread>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QGroupBox>
+#include <QRadioButton>
+#include <QButtonGroup>
+#include <QLabel>
+#include <QSpinBox>
+#include <QCheckBox>
 
 #include <AI.h>
 #include <Board.h>
@@ -25,9 +33,15 @@ class MainWindow : public QMainWindow
 
     AI blackAI;
 
-    QDockWidget whitePlayerSettings;
+    bool isWhiteAI = false;
 
-    QDockWidget blackPlayerSettings;
+    bool isBlackAI = false;
+
+    QDockWidget whitePlayerSettingsDockWidget;
+
+    QDockWidget blackPlayerSettingsDockWidget;
+
+    QDockWidget gameControlScoreDockWidget;
 
     BoardWidget boardWidget;
 
@@ -38,6 +52,22 @@ public slots:
     void whiteNextMoveComputed(Move move);
 
     void blackNextMoveComputed(Move move);
+
+    void whitePlayerSelectionButtonClicked(QAbstractButton *button);
+
+    void blackPlayerSelectionButtonClicked(QAbstractButton *button);
+
+    void whiteAIDepthValueChanged(int i);
+
+    void blackAIDepthValueChanged(int i);
+
+    void whiteAIAlphaBetaPruningStateChanged(int state);
+
+    void blackAIAlphaBetaPruningStateChanged(int state);
+
+    void whiteAIIterativeDeepeningStateChanged(int state);
+
+    void blackAIIterativeDeepeningStateChanged(int state);
 
 signals:
     void whiteComputeNextMove();
