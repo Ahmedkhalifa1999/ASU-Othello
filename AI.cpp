@@ -33,6 +33,41 @@ int AI::corners(Board& board, PlayerColor player) {
             / (blackCorners + whiteCorners + 1);
     }
 }
+
+PlayerColor AI::getOpponent(PlayerColor player) {
+    if (player == BLACK_PLAYER) {
+        return WHITE_PLAYER;
+    } else {
+        return BLACK_PLAYER;
+    }
+}
+
+int AI::squareWeights(Board& board, PlayerColor player) {
+    const int squareWeights[8][8] = {
+        { 100, -20,  30,  10,  10,  30, -20, 100 },
+        { -20, -50, -10,  -5,  -5, -10, -50, -20 },
+        {  30, -10,  10,   5,   5,  10, -10,  30 },
+        {  10,  -5,   5,   0,   0,   5,  -5,  10 },
+        {  10,  -5,   5,   0,   0,   5,  -5,  10 },
+        {  30, -10,  10,   5,   5,  10, -10,  30 },
+        { -20, -50, -10,  -5,  -5, -10, -50, -20 },
+        { 100, -20,  30,  10,  10,  30, -20, 100 }
+    };
+
+    int score = 0;
+    for (int row = 0; row < 8; row++) {
+        for (int col = 0; col < 8; col++) {
+            if (board[row][col] == player) {
+                score += squareWeights[row][col];
+            } else if (board[row][col] == getOpponent(player)) {
+                score -= squareWeights[row][col];
+            }
+        }
+    }
+    return score;
+}
+
+
 void AI::setDifficulty(Difficulty difficulty)
 {
 
