@@ -2,7 +2,10 @@
 
 double AI::getBoardScore(const Board &board)
 {
+    int cornerScore = corners(board, player) * cornerWeight;
+    int squareScore = squareWeights(board, player) * squareWeight;
 
+    return cornerScore + squareScore;
 }
 
 AI::AI(PlayerColor player, const Board& board)
