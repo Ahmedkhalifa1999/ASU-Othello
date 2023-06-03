@@ -12,6 +12,7 @@
 #include <QLabel>
 #include <QSpinBox>
 #include <QCheckBox>
+#include <QPushButton>
 
 #include <AI.h>
 #include <Board.h>
@@ -68,6 +69,8 @@ public slots:
     void whiteAIIterativeDeepeningStateChanged(int state);
 
     void blackAIIterativeDeepeningStateChanged(int state);
+
+    void restartButtonClicked(bool checked);
 
 signals:
     void whiteComputeNextMove();

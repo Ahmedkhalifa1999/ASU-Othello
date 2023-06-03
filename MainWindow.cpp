@@ -40,7 +40,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     QVBoxLayout *whitePlayerSettingsWidgetLayout = new QVBoxLayout(whitePlayerSettingsWidget);
     QVBoxLayout *blackPlayerSettingsWidgetLayout = new QVBoxLayout(blackPlayerSettingsWidget);
-    QVBoxLayout *gameControlScoreWidgetLayout = new QVBoxLayout(gameControlScoreWidget);
+    QHBoxLayout *gameControlScoreWidgetLayout = new QHBoxLayout(gameControlScoreWidget);
 
     whitePlayerSettingsWidget->setLayout(whitePlayerSettingsWidgetLayout);
     blackPlayerSettingsWidget->setLayout(blackPlayerSettingsWidgetLayout);
@@ -116,6 +116,16 @@ MainWindow::MainWindow(QWidget *parent)
 
     QObject::connect(whiteAIIterativeDeepeningCheckBox, &QCheckBox::stateChanged, this, &MainWindow::whiteAIIterativeDeepeningStateChanged);
     QObject::connect(blackAIIterativeDeepeningCheckBox, &QCheckBox::stateChanged, this, &MainWindow::blackAIIterativeDeepeningStateChanged);
+
+    QVBoxLayout *whitePlayerScoreLayout = new QVBoxLayout();
+    QVBoxLayout *blackPlayerScoreLayout = new QVBoxLayout();
+    QPushButton *restartGameButton = new QPushButton("Restart Game", gameControlScoreWidget);
+
+    QObject::connect(restartGameButton, &QPushButton::clicked, this, &MainWindow::restartButtonClicked);
+
+    gameControlScoreWidgetLayout->addLayout(whitePlayerScoreLayout);
+    gameControlScoreWidgetLayout->addWidget(restartGameButton);
+    gameControlScoreWidgetLayout->addLayout(blackPlayerScoreLayout);
 }
 
 void MainWindow::whiteNextMoveComputed(Move move)
@@ -202,6 +212,13 @@ void MainWindow::blackAIIterativeDeepeningStateChanged(int state)
     else if (state == Qt::Checked) {
         blackAI.setIterativeDeepening(true);
     }
+}
+
+void MainWindow::restartButtonClicked(bool checked)
+{
+    Q_UNUSED(checked)
+    mainBoard = Board();
+    boardWidget.update();
 }
 
 
