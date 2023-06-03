@@ -23,6 +23,10 @@ set(PROJECT_SOURCES
         Board.h
         AI.cpp
         AI.h
+        Algortithm/minmax.cpp
+        Algortithm/minmax.h
+        Algortithm/Node.cpp
+        Algortithm/Node.hpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

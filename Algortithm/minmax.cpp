@@ -3,7 +3,7 @@
 #include "Board.h"
 #include "Node.hpp"
 #include "AI.h"
-#define ScoreStub 30;
+#define ScoreStub 30
 using namespace std;
 
 
