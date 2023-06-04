@@ -27,12 +27,31 @@ Move minimax(Node currentNode,bool Max,int alpha,int beta,int depth){
 	
 	if(Max)
 	{
-		
-		
+		int maxValue = -INFINITY;
+		for(auto child: currentNode.children)
+		{
+			int eval = minimax(currentNode.children,false,alpha,beta,depth-1);
+			maxValue = max(maxValue,eval);
+			alpha = max(alpha,eval);
+			if(beta<=alpha){
+				break;
+			}
+		}
+		return maxValue;
 	}
 	else
 	{
-
+		int minValue = INFINITY;
+		for(auto child: currentNode.children)
+		{
+			int eval = minimax(currentNode.children,true,alpha,beta,depth-1);
+			minValue = min(minValue,eval);
+			beta = min(beta,eval);
+			if(beta<=alpha){
+				break;
+			}
+		}
+		return minValue;
 	}
 
 
