@@ -1,7 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include "Board.h"
-#include "Node.hpp"
+#include "Node.h"
 #include "AI.h"
 #define ScoreStub 30
 using namespace std;
