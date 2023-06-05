@@ -26,9 +26,11 @@ MainWindow::MainWindow(QWidget *parent)
     blackPlayerSettingsDockWidget.setFeatures(QDockWidget::NoDockWidgetFeatures);
     gameControlScoreDockWidget.setFeatures(QDockWidget::NoDockWidgetFeatures);
 
+
     whitePlayerSettingsDockWidget.setWindowTitle("White Player");
     blackPlayerSettingsDockWidget.setWindowTitle("Black Player");
     gameControlScoreDockWidget.setWindowTitle("Score and Game Control");
+    boardWidget.setWindowTitle("Game Window");
 
     QWidget *whitePlayerSettingsWidget = new QWidget(&whitePlayerSettingsDockWidget);
     QWidget *blackPlayerSettingsWidget = new QWidget(&blackPlayerSettingsDockWidget);

@@ -2,6 +2,8 @@
 #define BOARDWIDGET_H
 
 #include <QWidget>
+#include <QPainter>
+#include <QPainterPath>
 
 #include <Board.h>
 
