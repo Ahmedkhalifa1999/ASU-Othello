@@ -4,6 +4,7 @@
 #include <QObject>
 
 #include <Board.h>
+#include "minmax.h"
 
 typedef struct {
 
