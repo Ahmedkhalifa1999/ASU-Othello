@@ -1,9 +1,6 @@
-#include <iostream>
-#include <algorithm>
-#include "Board.h"
-#include "Node.h"
-#include "AI.h"
-#define ScoreStub 30
+
+#include "minmax.h"
+
 using namespace std;
 
 
