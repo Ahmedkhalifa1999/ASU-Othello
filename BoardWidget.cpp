@@ -3,10 +3,9 @@
 BoardWidget::BoardWidget(Board &board, QWidget *parent)
  : QWidget{parent}, board{board}
 {
+    this->setFixedSize(801, 801);
 
     this->update();
-
-
 }
 
 void BoardWidget::paintEvent(QPaintEvent *event)
