@@ -113,7 +113,7 @@ void BoardWidget::mousePressEvent(QMouseEvent *event)
 
       p = event->pos();
     
-    // Get Row
+    // Get Column
 
     if((p.x() >=0) && (p.x()<=100) ){
         column=0;
@@ -140,7 +140,7 @@ void BoardWidget::mousePressEvent(QMouseEvent *event)
         column=7;
     }
 
-    // Get Column
+    // Get Row
 
     if((p.y() >=0) && (p.y()<=100) ){
         row=0;
