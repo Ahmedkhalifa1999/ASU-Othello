@@ -99,3 +99,89 @@ void BoardWidget::mousePressEvent(QMouseEvent *event)
 {
 
 }
+
+
+void BoardWidget::mousePressEvent(QMouseEvent *event)
+{
+    unsigned int row , column;
+
+    Move move;
+
+    QPoint p; 
+
+    // 1. Get the position (x,y) of the move, where the mouse left button is pressed
+
+      p = event->pos();
+    
+    // Get Row
+
+    if((p.x() >=0) && (p.x()<=100) ){
+        column=0;
+    }
+    else if((p.x() >=101) && (p.x()<=200)){
+        column=1;
+    }
+    else if((p.x() >=201) && (p.x()<=300)){
+        column=2;
+    }
+    else if((p.x() >=301) && (p.x()<=400)){
+        column=3;
+    }
+    else if((p.x() >=401) && (p.x()<=500)){
+        column=4;
+    }
+    else if((p.x() >=501) && (p.x()<=600)){
+        column=5;
+    }
+    else if((p.x() >=601) && (p.x()<=700)){
+        column=6;
+    }
+    else if((p.x() >=701) && (p.x()<=801)){
+        column=7;
+    }
+
+    // Get Column
+
+    if((p.y() >=0) && (p.y()<=100) ){
+        row=0;
+    }
+    else if((p.y() >=101) && (p.y()<=200)){
+        row=1;
+    }
+    else if((p.y() >=201) && (p.y()<=300)){
+        row=2;
+    }
+    else if((p.y() >=301) && (p.y()<=400)){
+        row=3;
+    }
+    else if((p.y() >=401) && (p.y()<=500)){
+        row=4;
+    }
+    else if((p.y() >=501) && (p.y()<=600)){
+        row=5;
+    }
+    else if((p.y() >=601) && (p.y()<=700)){
+        row=6;
+    }
+    else if((p.y() >=701) && (p.y()<=801)){
+        row=7;
+    }
+
+    move.row = row;
+
+    move.column = column;
+
+    qDebug("row : %d \n" , row);
+
+    qDebug("column : %d \n" , column);
+
+    // 2. Get the color of the player who wanted to do the move
+
+
+
+    // 3. do the desired moved
+ 
+    //   doMove( move, player);
+
+
+}
