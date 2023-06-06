@@ -171,10 +171,6 @@ void BoardWidget::mousePressEvent(QMouseEvent *event)
 
     move.column = column;
 
-    qDebug("row : %d \n" , row);
-
-    qDebug("column : %d \n" , column);
-
     // 2. Get the color of the player who wanted to do the move
 
 
