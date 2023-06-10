@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QPainter>
 #include <QPainterPath>
+#include <QMouseEvent>
 
 #include <Board.h>
 

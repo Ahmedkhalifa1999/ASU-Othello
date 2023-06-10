@@ -97,12 +97,6 @@ void BoardWidget::paintEvent(QPaintEvent *event)
 
 void BoardWidget::mousePressEvent(QMouseEvent *event)
 {
-
-}
-
-
-void BoardWidget::mousePressEvent(QMouseEvent *event)
-{
     unsigned int row , column;
 
     Move move;

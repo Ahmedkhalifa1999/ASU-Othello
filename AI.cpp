@@ -2,8 +2,8 @@
 
 double AI::getBoardScore(const Board &board)
 {
-    int cornerScore = corners(board, player) * cornerWeight;
-    int squareScore = squareWeights(board, player) * squareWeight;
+    int cornerScore = AI::corners(board, player) * cornerWeight;
+    int squareScore = AI::squareWeights(board, player) * squareWeight;
 
     return cornerScore + squareScore;
 }
@@ -13,17 +13,19 @@ AI::AI(PlayerColor player, const Board& board)
 {
 
 }
-int AI::corners(Board& board, PlayerColor player) {
+int AI::corners(const Board& board, PlayerColor player) {
     int corners[4][2] = {{0, 0}, {0, 7}, {7, 0}, {7, 7}};
     int blackCorners = 0;
     int whiteCorners = 0;
 
+    auto boardVector = board.getBoard();
+
     for (int i = 0; i < 4; i++) {
         int row = corners[i][0];
         int col = corners[i][1];
-        if (board[row][col] == BLACK_DISK) {
+        if (boardVector[row][col] == BLACK_DISK) {
               blackCorners++;
-        } else if (board[row][col] == WHITE_DISK) {
+        } else if (boardVector[row][col] == WHITE_DISK) {
         whiteCorners++;
     }
 }
@@ -45,7 +47,7 @@ PlayerColor AI::getOpponent(PlayerColor player) {
     }
 }
 
-int AI::squareWeights(Board& board, PlayerColor player) {
+int AI::squareWeights(const Board& board, PlayerColor player) {
     const int squareWeights[8][8] = {
         { 100, -20,  30,  10,  10,  30, -20, 100 },
         { -20, -50, -10,  -5,  -5, -10, -50, -20 },
@@ -57,12 +59,14 @@ int AI::squareWeights(Board& board, PlayerColor player) {
         { 100, -20,  30,  10,  10,  30, -20, 100 }
     };
 
+    auto boardVector = board.getBoard();
+
     int score = 0;
     for (int row = 0; row < 8; row++) {
         for (int col = 0; col < 8; col++) {
-            if (board[row][col] == player) {
+            if (boardVector[row][col] == player) {
                 score += squareWeights[row][col];
-            } else if (board[row][col] == getOpponent(player)) {
+            } else if (boardVector[row][col] == getOpponent(player)) {
                 score -= squareWeights[row][col];
             }
         }

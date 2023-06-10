@@ -25,7 +25,7 @@ Move minimax(Node currentNode,bool Max,int alpha,int beta,int depth){
 		int maxValue = -INFINITY;
 		for(auto child: currentNode.children)
 		{
-			int eval = minimax(currentNode.children,false,alpha,beta,depth-1);
+            int eval = minimax(child,false,alpha,beta,depth-1);
 			maxValue = max(maxValue,eval);
 			alpha = max(alpha,eval);
 			if(beta<=alpha){
@@ -39,7 +39,7 @@ Move minimax(Node currentNode,bool Max,int alpha,int beta,int depth){
 		int minValue = INFINITY;
 		for(auto child: currentNode.children)
 		{
-			int eval = minimax(currentNode.children,true,alpha,beta,depth-1);
+            int eval = minimax(child,true,alpha,beta,depth-1);
 			minValue = min(minValue,eval);
 			beta = min(beta,eval);
 			if(beta<=alpha){

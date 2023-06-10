@@ -42,6 +42,16 @@ class AI : public QObject
      */
     double getBoardScore(const Board &board);
 
+    int corners(const Board& board, PlayerColor player);
+
+    PlayerColor getOpponent(PlayerColor player);
+
+    int squareWeights(const Board& board, PlayerColor player);
+
+    int cornerWeight;
+
+    int squareWeight;
+
 public:
     /**
      * @brief AI Constructor

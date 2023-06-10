@@ -7,4 +7,4 @@
 
 void treeConstruct(Node* currentNode,int depth);
 
-Move minimax(Node currentNode,bool Max,int alpha,int beta,int depth)
+Move minimax(Node currentNode,bool Max,int alpha,int beta,int depth);
