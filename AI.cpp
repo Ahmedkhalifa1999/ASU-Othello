@@ -16,6 +16,36 @@ void AI::setDifficulty(Difficulty difficulty)
 
 }
 
+unsigned int AI::getDepth()
+{
+
+}
+
+void AI::setDepth(unsigned int depth)
+{
+
+}
+
+bool AI::getAlphaBetaPruning()
+{
+
+}
+
+void AI::setAlphaBetaPruning(bool alphaBetaPruning)
+{
+
+}
+
+bool AI::getIterativeDeepening()
+{
+
+}
+
+void AI::setIterativeDeepening(bool iterativeDeepening)
+{
+
+}
+
 void AI::computeNextMove()
 {
 

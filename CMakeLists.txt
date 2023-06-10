@@ -18,7 +18,6 @@ set(PROJECT_SOURCES
         main.cpp
         MainWindow.cpp
         MainWindow.h
-        MainWindow.ui
         Board.cpp
         Board.h
         AI.cpp
@@ -27,6 +26,8 @@ set(PROJECT_SOURCES
         Algortithm/minmax.h
         Algortithm/Node.cpp
         Algortithm/Node.hpp
+        BoardWidget.cpp
+        BoardWidget.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

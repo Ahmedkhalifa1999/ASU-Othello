@@ -57,6 +57,14 @@ public:
     void setDifficulty(Difficulty difficulty);
 
     /* Implement setters and getters for all the parameters */
+    unsigned int getDepth();
+    void setDepth(unsigned int depth);
+
+    bool getAlphaBetaPruning();
+    void setAlphaBetaPruning(bool alphaBetaPruning);
+
+    bool getIterativeDeepening();
+    void setIterativeDeepening(bool iterativeDeepening);
 
 public slots:
     /**
