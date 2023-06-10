@@ -4,6 +4,7 @@
 #include <QObject>
 
 #include <Board.h>
+#include <Node.h>
 
 typedef struct {
 
@@ -51,6 +52,10 @@ class AI : public QObject
     int cornerWeight;
 
     int squareWeight;
+
+    void treeConstruct(Node* currentNode,int depth);
+
+    Move minimax(Node *currentNode,bool Max,int alpha,int beta,int depth);
 
 public:
     /**
