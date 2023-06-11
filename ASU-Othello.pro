@@ -14,14 +14,16 @@ SOURCES += \
     BoardWidget.cpp \
     Node.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    minmax.cpp
 
 HEADERS += \
     AI.h \
     Board.h \
     BoardWidget.h \
     Node.h \
-    mainwindow.h
+    mainwindow.h \
+    minimax.h
 
 FORMS += \
     mainwindow.ui

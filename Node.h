@@ -4,6 +4,7 @@ using namespace std;
 class Node{
     public:
         Board State;
+        int position;
         //bool isRoot;
         PlayerColor color;
         vector<Node*> children;

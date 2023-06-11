@@ -123,15 +123,14 @@ void AI::treeConstruct(Node* currentNode,int depth){
     for(auto Move: validMoves){
         Board StateCpy = currentNode->State;
         StateCpy.doMove(Move,currentNode->color);
-        currentNode->children.push_back(new Node(StateCpy,currentNode->color,0,0,ScoreStub));
+        currentNode->children.push_back(new Node(StateCpy,currentNode->color,0,0,currentNode->Score));
         treeConstruct(currentNode->children.back(),depth - 1);
     }
 }
 
-Move AI::minimax(Node *currentNode,bool Max,int alpha,int beta,int depth){
-    Move move;
+int AI::minimax(Node *currentNode,bool Max,int alpha,int beta,int depth){
     if(depth == 0)
-        return move;
+        return currentNode->position;
 
     if(Max)
     {
@@ -161,6 +160,4 @@ Move AI::minimax(Node *currentNode,bool Max,int alpha,int beta,int depth){
         }
         return minValue;
     }
-
-
 }

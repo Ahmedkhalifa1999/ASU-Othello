@@ -55,7 +55,7 @@ class AI : public QObject
 
     void treeConstruct(Node* currentNode,int depth);
 
-    Move minimax(Node *currentNode,bool Max,int alpha,int beta,int depth);
+    int minimax(Node *currentNode,bool Max,int alpha,int beta,int depth);
 
 public:
     /**
