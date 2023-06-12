@@ -8,6 +8,7 @@ class Node{
         //bool isRoot;
         PlayerColor color;
         vector<Node*> children;
+        Move moveDone;
         int alpha = -INFINITY;
         int beta = INFINITY;
         double Score;
