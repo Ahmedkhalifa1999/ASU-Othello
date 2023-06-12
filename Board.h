@@ -36,8 +36,6 @@ class Board
 
     PlayerColor currentPlayer = BLACK_PLAYER;
 
-    PlayerColor currentPlayer = BLACK_PLAYER;
-
 public:
 
     /**
