@@ -122,19 +122,41 @@ void AI::setIterativeDeepening(bool iterativeDeepening)
     parameters.iterativeDeepening = iterativeDeepening;
 }
 
+void deleteTree(Node* node)
+{
+    if (node == NULL) return;
+
+    for(auto child: node->children)
+    {
+        deleteTree(child);
+    }
+
+    delete node;
+}
+
 void AI::computeNextMove()
 {
-    Move bestMove;
-
     // construct tree
-
+    //Board State, PlayerColor color, int row, int column, int alpha, int beta, double Score
+    Node* parentNode = new Node(board,board.getCurrentPlayer(),0,0, INT_MIN, INT_MAX, 0);
+    //Node* parentNode = new Node();
+    treeConstruct(parentNode,parameters.depth);
     //call minmax
-
+    minimax(parentNode,true,parameters.depth);
     //get the best move
-
+    Move nextMove;
+    int bestScore = parentNode->children[0]->Score;
+    for(auto child : parentNode->children)
+    {
+     	if(child->Score > bestScore)
+     	{
+     	   bestScore = child->Score;
+           nextMove = child->moveDone;
+     	}   
+    }
     //delete tree
-
-    emit nextMoveComputed(bestMove);
+    deleteTree(parentNode);
+    emit nextMoveComputed(nextMove);
 }
 
 void AI::treeConstruct(Node* currentNode,int depth){
@@ -145,24 +167,26 @@ void AI::treeConstruct(Node* currentNode,int depth){
     for(auto move: validMoves){
         Board StateCpy = currentNode->State;
         StateCpy.doMove(move,currentNode->color);
-        currentNode->children.push_back(new Node(StateCpy,currentNode->color,0,0,currentNode->Score));
+        currentNode->children.push_back(new Node(StateCpy,currentNode->color,0,0,INT_MIN,INT_MAX,currentNode->Score));
+        //Board State, PlayerColor color, int row, int column, int alpha, int beta, double Score
         treeConstruct(currentNode->children.back(),depth - 1);
     }
 }
 
-int AI::minimax(Node *currentNode,bool Max,int alpha,int beta,int depth){
+int AI:: minimax(Node *currentNode,bool Max,int depth){
     if(depth == 0)
-        return currentNode->Score;
+        return getBoardScore(currentNode->State);
 
     if(Max)
     {
         int maxValue = INT_MIN;
         for(auto child: currentNode->children)
         {
-            int eval = minimax(child,false,alpha,beta,depth-1);
+            int eval = minimax(child,false,depth-1);
             maxValue = max(maxValue,eval);
-            alpha = max(alpha,eval);
-            if(beta<=alpha){
+            currentNode->alpha = max(currentNode->alpha,eval);
+            currentNode->Score = max(currentNode->alpha,eval);
+            if(currentNode->beta<=currentNode->alpha){
                 break;
             }
         }
@@ -173,10 +197,11 @@ int AI::minimax(Node *currentNode,bool Max,int alpha,int beta,int depth){
         int minValue = INT_MAX;
         for(auto child: currentNode->children)
         {
-            int eval = minimax(child,true,alpha,beta,depth-1);
+            int eval = minimax(child,true,depth-1);
             minValue = min(minValue,eval);
-            beta = min(beta,eval);
-            if(beta<=alpha){
+            currentNode->beta = min(currentNode->beta,eval);
+            currentNode->Score = min(currentNode->beta,eval);
+            if(currentNode->beta<=currentNode->alpha){
                 break;
             }
         }
