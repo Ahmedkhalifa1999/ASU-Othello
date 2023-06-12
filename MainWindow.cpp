@@ -3,6 +3,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), whiteAI{WHITE_PLAYER, mainBoard}, blackAI{BLACK_PLAYER, mainBoard}, boardWidget{mainBoard}
 {
+    //AI Objects
     QObject::connect(this, &MainWindow::whiteComputeNextMove, &whiteAI, &AI::computeNextMove);
     QObject::connect(this, &MainWindow::blackComputeNextMove, &blackAI, &AI::computeNextMove);
     QObject::connect(&whiteAI, &AI::nextMoveComputed, this, &MainWindow::whiteNextMoveComputed);
@@ -82,7 +83,7 @@ MainWindow::MainWindow(QWidget *parent)
     blackAIDepthLayout->addWidget(new QLabel("Depth", blackPlayerSettingsWidget));
     QSpinBox *blackAIDepthSpinBox = new QSpinBox(blackPlayerSettingsWidget);
     blackAIDepthSpinBox->setMinimum(1);
-    blackAIDepthSpinBox->setValue(whiteAI.parameters.depth);
+    blackAIDepthSpinBox->setValue(blackAI.parameters.depth);
     blackAIDepthLayout->addWidget(blackAIDepthSpinBox);
 
     QObject::connect(whiteAIDepthSpinBox, &QSpinBox::valueChanged, this, &MainWindow::whiteAIDepthValueChanged);
@@ -90,6 +91,48 @@ MainWindow::MainWindow(QWidget *parent)
 
     whitePlayerSettingsWidgetLayout->addLayout(whiteAIDepthLayout);
     blackPlayerSettingsWidgetLayout->addLayout(blackAIDepthLayout);
+
+    QHBoxLayout *whiteAICornerWeightLayout = new QHBoxLayout();
+    QHBoxLayout *blackAICornerWeightLayout = new QHBoxLayout();
+
+    whiteAICornerWeightLayout->addWidget(new QLabel("Corner Weight", whitePlayerSettingsWidget));
+    QSpinBox *whiteAICornerWeightSpinBox = new QSpinBox(whitePlayerSettingsWidget);
+    whiteAICornerWeightSpinBox->setMinimum(1);
+    whiteAICornerWeightSpinBox->setValue(whiteAI.parameters.cornerWeight);
+    whiteAICornerWeightLayout->addWidget(whiteAICornerWeightSpinBox);
+
+    blackAICornerWeightLayout->addWidget(new QLabel("Corner Weight", blackPlayerSettingsWidget));
+    QSpinBox *blackAICornerWeightSpinBox = new QSpinBox(blackPlayerSettingsWidget);
+    blackAICornerWeightSpinBox->setMinimum(1);
+    blackAICornerWeightSpinBox->setValue(blackAI.parameters.cornerWeight);
+    blackAICornerWeightLayout->addWidget(blackAICornerWeightSpinBox);
+
+    QObject::connect(whiteAICornerWeightSpinBox, &QSpinBox::valueChanged, this, &MainWindow::whiteAICornerWeightValueChanged);
+    QObject::connect(blackAICornerWeightSpinBox, &QSpinBox::valueChanged, this, &MainWindow::blackAICornerWeightValueChanged);
+
+    whitePlayerSettingsWidgetLayout->addLayout(whiteAICornerWeightLayout);
+    blackPlayerSettingsWidgetLayout->addLayout(blackAICornerWeightLayout);
+
+    QHBoxLayout *whiteAISquareWeightLayout = new QHBoxLayout();
+    QHBoxLayout *blackAISquareWeightLayout = new QHBoxLayout();
+
+    whiteAISquareWeightLayout->addWidget(new QLabel("Square Weight", whitePlayerSettingsWidget));
+    QSpinBox *whiteAISquareWeightSpinBox = new QSpinBox(whitePlayerSettingsWidget);
+    whiteAISquareWeightSpinBox->setMinimum(1);
+    whiteAISquareWeightSpinBox->setValue(whiteAI.parameters.squareWeight);
+    whiteAISquareWeightLayout->addWidget(whiteAISquareWeightSpinBox);
+
+    blackAISquareWeightLayout->addWidget(new QLabel("Square Weight", blackPlayerSettingsWidget));
+    QSpinBox *blackAISquareWeightSpinBox = new QSpinBox(blackPlayerSettingsWidget);
+    blackAISquareWeightSpinBox->setMinimum(1);
+    blackAISquareWeightSpinBox->setValue(blackAI.parameters.squareWeight);
+    blackAISquareWeightLayout->addWidget(blackAISquareWeightSpinBox);
+
+    QObject::connect(whiteAISquareWeightSpinBox, &QSpinBox::valueChanged, this, &MainWindow::whiteAISquareWeightValueChanged);
+    QObject::connect(blackAISquareWeightSpinBox, &QSpinBox::valueChanged, this, &MainWindow::blackAISquareWeightValueChanged);
+
+    whitePlayerSettingsWidgetLayout->addLayout(whiteAISquareWeightLayout);
+    blackPlayerSettingsWidgetLayout->addLayout(blackAISquareWeightLayout);
 
     QVBoxLayout *whitePlayerScoreLayout = new QVBoxLayout();
     QVBoxLayout *blackPlayerScoreLayout = new QVBoxLayout();
@@ -112,7 +155,9 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::whiteNextMoveComputed(Move move)
 {
-    mainBoard.doMove(move, WHITE_PLAYER);
+    if(!mainBoard.doMove(move, WHITE_PLAYER)) {
+        qDebug() << "White AI: Invalid Move";
+    }
     whiteScore.setText("White Score: " + QString::number(mainBoard.countDisks(WHITE_DISK)));
     blackScore.setText("Black Score: " + QString::number(mainBoard.countDisks(BLACK_DISK)));
     boardWidget.update();
@@ -123,7 +168,9 @@ void MainWindow::whiteNextMoveComputed(Move move)
 
 void MainWindow::blackNextMoveComputed(Move move)
 {
-    mainBoard.doMove(move, BLACK_PLAYER);
+    if(!mainBoard.doMove(move, BLACK_PLAYER)) {
+        qDebug() << "White AI: Invalid Move";
+    }
     whiteScore.setText("White Score: " + QString::number(mainBoard.countDisks(WHITE_DISK)));
     blackScore.setText("Black Score: " + QString::number(mainBoard.countDisks(BLACK_DISK)));
     boardWidget.update();
@@ -162,6 +209,26 @@ void MainWindow::blackAIDepthValueChanged(int depth)
     blackAI.parameters.depth = depth;
 }
 
+void MainWindow::whiteAICornerWeightValueChanged(int cornerWeight)
+{
+    whiteAI.parameters.cornerWeight = cornerWeight;
+}
+
+void MainWindow::blackAICornerWeightValueChanged(int cornerWeight)
+{
+    blackAI.parameters.cornerWeight = cornerWeight;
+}
+
+void MainWindow::whiteAISquareWeightValueChanged(int squareWeight)
+{
+    whiteAI.parameters.squareWeight = squareWeight;
+}
+
+void MainWindow::blackAISquareWeightValueChanged(int squareWeight)
+{
+    blackAI.parameters.squareWeight = squareWeight;
+}
+
 void MainWindow::restartButtonClicked(bool checked)
 {
     Q_UNUSED(checked)
@@ -176,13 +243,15 @@ void MainWindow::humanPlayed(Move move)
 {
     PlayerColor currentPlayer = mainBoard.getCurrentPlayer();
 
-    mainBoard.doMove(move, currentPlayer);
+    if ((currentPlayer == WHITE_PLAYER && !isWhiteAI) || ((currentPlayer == BLACK_PLAYER) && !isBlackAI)) {
+        mainBoard.doMove(move, currentPlayer);
 
-    whiteScore.setText("White Score: " + QString::number(mainBoard.countDisks(WHITE_DISK)));
-    blackScore.setText("Black Score: " + QString::number(mainBoard.countDisks(BLACK_DISK)));
-    boardWidget.update();
+        whiteScore.setText("White Score: " + QString::number(mainBoard.countDisks(WHITE_DISK)));
+        blackScore.setText("Black Score: " + QString::number(mainBoard.countDisks(BLACK_DISK)));
+        boardWidget.update();
+    }
 
-    PlayerColor nextPlayer = (currentPlayer == WHITE_PLAYER)? BLACK_PLAYER:WHITE_PLAYER;
+    PlayerColor nextPlayer = mainBoard.getCurrentPlayer();
 
     if (nextPlayer == WHITE_PLAYER && isWhiteAI) {
         emit whiteComputeNextMove();

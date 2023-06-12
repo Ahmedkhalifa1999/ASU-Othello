@@ -165,9 +165,5 @@ void BoardWidget::mousePressEvent(QMouseEvent *event)
 
     move.column = column;
 
-    PlayerColor currentPlayer = board.getCurrentPlayer();
-
-    if (board.doMove(move, currentPlayer)) {
-        emit humanPlayed(move);
-    }
+    emit humanPlayed(move);
 }

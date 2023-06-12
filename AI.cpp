@@ -118,7 +118,7 @@ void AI::computeNextMove()
     int bestScore = parentNode->children[0]->Score;
     for(auto child : parentNode->children)
     {
-     	if(child->Score > bestScore)
+        if(child->Score >= bestScore)
      	{
      	   bestScore = child->Score;
            nextMove = child->moveDone;

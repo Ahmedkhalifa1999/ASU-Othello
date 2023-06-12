@@ -60,6 +60,14 @@ public slots:
 
     void blackAIDepthValueChanged(int depth);
 
+    void whiteAICornerWeightValueChanged(int depth);
+
+    void blackAICornerWeightValueChanged(int depth);
+
+    void whiteAISquareWeightValueChanged(int depth);
+
+    void blackAISquareWeightValueChanged(int depth);
+
     void restartButtonClicked(bool checked);
 
     void humanPlayed(Move move);
