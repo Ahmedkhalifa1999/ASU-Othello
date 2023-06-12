@@ -142,7 +142,7 @@ void AI::treeConstruct(Node* currentNode,int depth){
 
 int AI::minimax(Node *currentNode,bool Max,int alpha,int beta,int depth){
     if(depth == 0)
-        return currentNode->position;
+        return currentNode->Score;
 
     if(Max)
     {

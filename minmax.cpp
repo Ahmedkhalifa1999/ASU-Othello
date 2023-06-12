@@ -16,19 +16,52 @@ void treeConstruct (Node* currentNode,int depth){
 	}
 }
 
-int minimax (Node* currentNode,bool Max,int alpha,int beta,int depth){
+int minimax (Node* currentNode,bool Max,int depth){
+    if(depth == 0)
+        return currentNode->Score;
+
+    if(Max)
+    {
+        int maxValue = -INFINITY;
+        for(auto child: currentNode->children)
+        {
+            int eval = minimax(child,false,depth-1);
+            maxValue = max(maxValue,eval);
+            currentNode->Score = max(int(currentNode->Score),eval);
+        }
+        return maxValue;
+    }
+    else
+    {
+        int minValue = INFINITY;
+        for(auto child: currentNode->children)
+        {
+            int eval = minimax(child,true,depth-1);
+            minValue = min(minValue,eval);
+            currentNode->Score = min(int(currentNode->Score),eval);
+        }
+        return minValue;
+    }
+
+
+}
+
+
+
+int minimaxWithPruning (Node* currentNode,bool Max,int depth){
 	if(depth == 0)
-        return currentNode->position;
+        return currentNode->Score;
 	
 	if(Max)
 	{
         int maxValue = INT_MAX;
         for(auto child: currentNode->children)
 		{
-            int eval = minimax(child,false,alpha,beta,depth-1);
+            int eval = minimax(child,false,depth-1);
 			maxValue = max(maxValue,eval);
-			alpha = max(alpha,eval);
-			if(beta<=alpha){
+            currentNode->alpha = max(currentNode->alpha,eval);
+            currentNode->Score = max(currentNode->alpha,eval);
+            if(currentNode->beta<=currentNode->alpha){
 				break;
 			}
 		}
@@ -39,15 +72,16 @@ int minimax (Node* currentNode,bool Max,int alpha,int beta,int depth){
         int minValue = INT_MIN;
         for(auto child: currentNode->children)
 		{
-            int eval = minimax(child,true,alpha,beta,depth-1);
+            int eval = minimax(child,true,depth-1);
 			minValue = min(minValue,eval);
-			beta = min(beta,eval);
-			if(beta<=alpha){
+            currentNode->beta = min(currentNode->beta,eval);
+            currentNode->Score = min(currentNode->beta,eval);
+            if(currentNode->beta<=currentNode->alpha){
 				break;
 			}
 		}
 		return minValue;
 	}
-
-
 }
+
+
