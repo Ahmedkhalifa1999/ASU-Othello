@@ -126,6 +126,13 @@ void AI::computeNextMove()
 {
     Move bestMove;
 
+    // construct tree
+
+    //call minmax
+
+    //get the best move
+
+    //delete tree
 
     emit nextMoveComputed(bestMove);
 }
