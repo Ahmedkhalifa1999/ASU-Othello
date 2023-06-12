@@ -112,6 +112,9 @@ void AI::deleteTree(Node* node)
 
 void AI::computeNextMove()
 {
+    QElapsedTimer timer;
+    timer.start();
+
     // construct tree
     //Board State, PlayerColor color, int row, int column, int alpha, int beta, double Score
     Node* parentNode = new Node(board,board.getCurrentPlayer(),0,0, INT_MIN, INT_MAX, 0);
@@ -120,7 +123,7 @@ void AI::computeNextMove()
     //call minmax
     minimax(parentNode,true,parameters.depth);
     //get the best move
-    Move nextMove;
+    Move nextMove = {-1, -1};
     int bestScore = parentNode->children[0]->Score;
     for(auto child : parentNode->children)
     {
@@ -132,6 +135,13 @@ void AI::computeNextMove()
     }
     //delete tree
     deleteTree(parentNode);
+
+    int elapsed = timer.elapsed();
+
+    if (elapsed < 1000) {
+        QThread::msleep(1000-elapsed);
+    }
+
     emit nextMoveComputed(nextMove);
 }
 

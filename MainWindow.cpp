@@ -304,7 +304,7 @@ void MainWindow::humanPlayed(Move move)
 
         whiteScore.setText("White Score: " + QString::number(mainBoard.countDisks(WHITE_DISK)));
         blackScore.setText("Black Score: " + QString::number(mainBoard.countDisks(BLACK_DISK)));
-        boardWidget.update();
+        boardWidget.repaint();
     }
 
     PlayerColor nextPlayer = mainBoard.getCurrentPlayer();

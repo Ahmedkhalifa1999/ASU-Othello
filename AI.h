@@ -2,6 +2,7 @@
 #define AI_H
 
 #include <QObject>
+#include <QThread>
 
 #include <Board.h>
 #include <Node.h>
