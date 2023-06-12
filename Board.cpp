@@ -366,7 +366,7 @@ bool Board::doMove(Move move, PlayerColor player)
             }
         }
         if (flip) {
-            for (int offset = 1; row + offset < 8 && column - offset < 8; offset++) {
+            for (int offset = 1; row - offset < 8 && column - offset < 8; offset++) {
                 if (board[row - offset][column - offset] == EMPTY_SQUARE) break;
                 if (board[row - offset][column - offset] == opponentDisk) {
                     board[row - offset][column - offset] = playerDisk;
