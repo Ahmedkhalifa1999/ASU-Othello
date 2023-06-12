@@ -65,27 +65,26 @@ class AI : public QObject
     int squareWeights(const Board& board, PlayerColor player);
 
     /**
-     * @brief corners
-     * @param board
-     * @param player
+     * @brief function used to construct a tree
+     * @param node for constructing the tree
+     * @param the depth of the tree
      * @return
      */
     void treeConstruct(Node* currentNode,int depth);
 
     /**
-     * @brief corners
-     * @param board
-     * @param player
-     * @return
+     * @brief function that do the minimax with alpha-beta pruning
+     * @param node
+     * @param boolean tells working with maximizer or minimizer
+     * @param the depth of the tree
+     * @return the score of the best move
      */
     int minimax(Node *currentNode,bool Max,int depth);
 
 
     /**
-     * @brief corners
-     * @param board
-     * @param player
-     * @return
+     * @brief function to delete the constructed tree
+     * @param tree to be deleted
      */
     void deleteTree(Node* node);
 
