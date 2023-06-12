@@ -6,10 +6,10 @@
 #include <Board.h>
 #include <Node.h>
 
-typedef struct {
-    int depth;
-    int cornerWeight;
-    int squareWeight;
+typedef struct AlgorithmParameters {
+    int depth = 3;
+    int cornerWeight = 1;
+    int squareWeight = 1;
 } AlgorithmParameters;
 
 typedef enum {

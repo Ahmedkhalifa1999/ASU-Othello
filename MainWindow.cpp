@@ -3,10 +3,6 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), whiteAI{WHITE_PLAYER, mainBoard}, blackAI{BLACK_PLAYER, mainBoard}, boardWidget{mainBoard}
 {
-    //AI Objects
-    whiteAI.moveToThread(&AI_Thread);
-    blackAI.moveToThread(&AI_Thread);
-
     QObject::connect(this, &MainWindow::whiteComputeNextMove, &whiteAI, &AI::computeNextMove);
     QObject::connect(this, &MainWindow::blackComputeNextMove, &blackAI, &AI::computeNextMove);
     QObject::connect(&whiteAI, &AI::nextMoveComputed, this, &MainWindow::whiteNextMoveComputed);
@@ -95,30 +91,6 @@ MainWindow::MainWindow(QWidget *parent)
     whitePlayerSettingsWidgetLayout->addLayout(whiteAIDepthLayout);
     blackPlayerSettingsWidgetLayout->addLayout(blackAIDepthLayout);
 
-//    QCheckBox *whiteAIAlphaBetaPruningCheckBox = new QCheckBox("Alpha-Beta Pruning", whitePlayerSettingsWidget);
-//    QCheckBox *blackAIAlphaBetaPruningCheckBox = new QCheckBox("Alpha-Beta Pruning", blackPlayerSettingsWidget);
-
-//    whitePlayerSettingsWidgetLayout->addWidget(whiteAIAlphaBetaPruningCheckBox);
-//    blackPlayerSettingsWidgetLayout->addWidget(blackAIAlphaBetaPruningCheckBox);
-
-//    whiteAIAlphaBetaPruningCheckBox->setChecked(whiteAI.getAlphaBetaPruning());
-//    blackAIAlphaBetaPruningCheckBox->setChecked(blackAI.getAlphaBetaPruning());
-
-//    QObject::connect(whiteAIAlphaBetaPruningCheckBox, &QCheckBox::stateChanged, this, &MainWindow::whiteAIAlphaBetaPruningStateChanged);
-//    QObject::connect(blackAIAlphaBetaPruningCheckBox, &QCheckBox::stateChanged, this, &MainWindow::blackAIAlphaBetaPruningStateChanged);
-
-//    QCheckBox *whiteAIIterativeDeepeningCheckBox = new QCheckBox("Iterative Deepening", whitePlayerSettingsWidget);
-//    QCheckBox *blackAIIterativeDeepeningCheckBox = new QCheckBox("Iterative Deepening", blackPlayerSettingsWidget);
-
-//    whitePlayerSettingsWidgetLayout->addWidget(whiteAIIterativeDeepeningCheckBox);
-//    blackPlayerSettingsWidgetLayout->addWidget(blackAIIterativeDeepeningCheckBox);
-
-//    whiteAIIterativeDeepeningCheckBox->setChecked(whiteAI.getIterativeDeepening());
-//    blackAIIterativeDeepeningCheckBox->setChecked(blackAI.getIterativeDeepening());
-
-//    QObject::connect(whiteAIIterativeDeepeningCheckBox, &QCheckBox::stateChanged, this, &MainWindow::whiteAIIterativeDeepeningStateChanged);
-//    QObject::connect(blackAIIterativeDeepeningCheckBox, &QCheckBox::stateChanged, this, &MainWindow::blackAIIterativeDeepeningStateChanged);
-
     QVBoxLayout *whitePlayerScoreLayout = new QVBoxLayout();
     QVBoxLayout *blackPlayerScoreLayout = new QVBoxLayout();
     QPushButton *restartGameButton = new QPushButton("Restart Game", gameControlScoreWidget);
@@ -180,55 +152,15 @@ void MainWindow::blackPlayerSelectionButtonClicked(QAbstractButton *button)
     }
 }
 
-void MainWindow::whiteAIDepthValueChanged(int i)
+void MainWindow::whiteAIDepthValueChanged(int depth)
 {
-    whiteAI.parameters.depth = i;
+    whiteAI.parameters.depth = depth;
 }
 
-void MainWindow::blackAIDepthValueChanged(int i)
+void MainWindow::blackAIDepthValueChanged(int depth)
 {
-    blackAI.parameters.depth = i;
+    blackAI.parameters.depth = depth;
 }
-
-//void MainWindow::whiteAIAlphaBetaPruningStateChanged(int state)
-//{
-//    if(state == Qt::Unchecked) {
-//        whiteAI.setAlphaBetaPruning(false);
-//    }
-//    else if (state == Qt::Checked) {
-//        whiteAI.setAlphaBetaPruning(true);
-//    }
-//}
-
-//void MainWindow::blackAIAlphaBetaPruningStateChanged(int state)
-//{
-//    if(state == Qt::Unchecked) {
-//        blackAI.setAlphaBetaPruning(false);
-//    }
-//    else if (state == Qt::Checked) {
-//        blackAI.setAlphaBetaPruning(true);
-//    }
-//}
-
-//void MainWindow::whiteAIIterativeDeepeningStateChanged(int state)
-//{
-//    if(state == Qt::Unchecked) {
-//        whiteAI.setIterativeDeepening(false);
-//    }
-//    else if (state == Qt::Checked) {
-//        whiteAI.setIterativeDeepening(true);
-//    }
-//}
-
-//void MainWindow::blackAIIterativeDeepeningStateChanged(int state)
-//{
-//    if(state == Qt::Unchecked) {
-//        blackAI.setIterativeDeepening(false);
-//    }
-//    else if (state == Qt::Checked) {
-//        blackAI.setIterativeDeepening(true);
-//    }
-//}
 
 void MainWindow::restartButtonClicked(bool checked)
 {

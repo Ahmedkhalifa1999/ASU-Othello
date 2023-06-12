@@ -27,7 +27,7 @@ class Node{
         /**
         * @brief score of the node
         */
-        double Score;
+        int Score;
 
         /**
          * @brief node default constructor

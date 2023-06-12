@@ -11,6 +11,8 @@ BoardWidget::BoardWidget(Board &board, QWidget *parent)
 void BoardWidget::paintEvent(QPaintEvent *event)
 {
 
+    Q_UNUSED(event);
+
     std::vector<std::vector<BoardSquareState>> boardvector = board.getBoard();
     std::vector<Move> moves;
     QPainter painter(this);

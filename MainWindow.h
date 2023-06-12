@@ -24,8 +24,6 @@ class MainWindow : public QMainWindow
 
     Board mainBoard;
 
-    QThread AI_Thread;
-
     AI whiteAI;
 
     AI blackAI;
@@ -34,13 +32,13 @@ class MainWindow : public QMainWindow
 
     bool isBlackAI = false;
 
+    BoardWidget boardWidget;
+
     QDockWidget whitePlayerSettingsDockWidget;
 
     QDockWidget blackPlayerSettingsDockWidget;
 
     QDockWidget gameControlScoreDockWidget;
-
-    BoardWidget boardWidget;
 
     QLabel whiteScore;
 
@@ -58,9 +56,9 @@ public slots:
 
     void blackPlayerSelectionButtonClicked(QAbstractButton *button);
 
-    void whiteAIDepthValueChanged(int i);
+    void whiteAIDepthValueChanged(int depth);
 
-    void blackAIDepthValueChanged(int i);
+    void blackAIDepthValueChanged(int depth);
 
     void restartButtonClicked(bool checked);
 
