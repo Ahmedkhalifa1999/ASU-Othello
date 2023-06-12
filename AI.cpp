@@ -112,7 +112,10 @@ void AI::setIterativeDeepening(bool iterativeDeepening)
 
 void AI::computeNextMove()
 {
+    Move bestMove;
 
+
+    emit nextMoveComputed(bestMove);
 }
 
 void AI::treeConstruct(Node* currentNode,int depth){
@@ -120,9 +123,9 @@ void AI::treeConstruct(Node* currentNode,int depth){
         return;
     vector<Move> validMoves = currentNode->State.getValidMoves(currentNode->color);
 
-    for(auto Move: validMoves){
+    for(auto move: validMoves){
         Board StateCpy = currentNode->State;
-        StateCpy.doMove(Move,currentNode->color);
+        StateCpy.doMove(move,currentNode->color);
         currentNode->children.push_back(new Node(StateCpy,currentNode->color,0,0,currentNode->Score));
         treeConstruct(currentNode->children.back(),depth - 1);
     }

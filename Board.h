@@ -63,6 +63,10 @@ public:
      */
     bool doMove(Move move, PlayerColor player);
 
+    PlayerColor getCurrentPlayer() const;
+
+    int countDisks(BoardSquareState diskType) const;
+
 };
 
 #endif // BOARD_H
