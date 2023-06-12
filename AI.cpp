@@ -136,11 +136,9 @@ void deleteTree(Node* node)
 
 void AI::computeNextMove()
 {
-    Move bestMove;
-
     // construct tree
     //Board State, PlayerColor color, int row, int column, int alpha, int beta, double Score
-    Node* parentNode = new Node(board,board.getCurrentPlayer(),0,0, -INFINITY, INFINITY, 0);
+    Node* parentNode = new Node(board,board.getCurrentPlayer(),0,0, INT_MIN, INT_MAX, 0);
     //Node* parentNode = new Node();
     treeConstruct(parentNode,parameters.depth);
     //call minmax
@@ -169,7 +167,7 @@ void AI::treeConstruct(Node* currentNode,int depth){
     for(auto move: validMoves){
         Board StateCpy = currentNode->State;
         StateCpy.doMove(move,currentNode->color);
-        currentNode->children.push_back(new Node(StateCpy,currentNode->color,0,0,-INFINITY,INFINITY,currentNode->Score));
+        currentNode->children.push_back(new Node(StateCpy,currentNode->color,0,0,INT_MIN,INT_MAX,currentNode->Score));
         //Board State, PlayerColor color, int row, int column, int alpha, int beta, double Score
         treeConstruct(currentNode->children.back(),depth - 1);
     }
@@ -181,7 +179,7 @@ int AI:: minimax(Node *currentNode,bool Max,int depth){
 
     if(Max)
     {
-        int maxValue = -INFINITY;
+        int maxValue = INT_MIN;
         for(auto child: currentNode->children)
         {
             int eval = minimax(child,false,depth-1);
@@ -196,7 +194,7 @@ int AI:: minimax(Node *currentNode,bool Max,int depth){
     }
     else
     {
-        int minValue = INFINITY;
+        int minValue = INT_MAX;
         for(auto child: currentNode->children)
         {
             int eval = minimax(child,true,depth-1);
