@@ -71,23 +71,41 @@ MainWindow::MainWindow(QWidget *parent)
     QObject::connect(whitePlayerSelectionButtonGroup, &QButtonGroup::buttonClicked, this, &MainWindow::whitePlayerSelectionButtonClicked);
     QObject::connect(blackPlayerSelectionButtonGroup, &QButtonGroup::buttonClicked, this, &MainWindow::blackPlayerSelectionButtonClicked);
 
+    QComboBox *whiteDifficultyComboBox = new QComboBox(whitePlayerSettingsWidget);
+    QComboBox *blackDifficultyComboBox = new QComboBox(blackPlayerSettingsWidget);
+
+    whiteDifficultyComboBox->addItems({"Easy", "Medium", "Hard", "Unbeatable"});
+    blackDifficultyComboBox->addItems({"Easy", "Medium", "Hard", "Unbeatable"});
+
+    whitePlayerSettingsWidgetLayout->addWidget(whiteDifficultyComboBox);
+    blackPlayerSettingsWidgetLayout->addWidget(blackDifficultyComboBox);
+
+    QObject::connect(whiteDifficultyComboBox, &QComboBox::currentTextChanged, this, &MainWindow::whiteAIDifficulyChanged);
+    QObject::connect(blackDifficultyComboBox, &QComboBox::currentTextChanged, this, &MainWindow::blackAIDifficulyChanged);
+
+    whiteDifficultyComboBox->setCurrentText("Easy");
+    blackDifficultyComboBox->setCurrentText("Easy");
+
+    whiteAI.setDifficulty(EASY);
+    blackAI.setDifficulty(EASY);
+
     QHBoxLayout *whiteAIDepthLayout = new QHBoxLayout();
     QHBoxLayout *blackAIDepthLayout = new QHBoxLayout();
 
     whiteAIDepthLayout->addWidget(new QLabel("Depth", whitePlayerSettingsWidget));
-    QSpinBox *whiteAIDepthSpinBox = new QSpinBox(whitePlayerSettingsWidget);
-    whiteAIDepthSpinBox->setMinimum(1);
-    whiteAIDepthSpinBox->setValue(whiteAI.parameters.depth);
-    whiteAIDepthLayout->addWidget(whiteAIDepthSpinBox);
+    whiteAIDepthSpinBox.setParent(whitePlayerSettingsWidget);
+    whiteAIDepthSpinBox.setMinimum(1);
+    whiteAIDepthSpinBox.setValue(whiteAI.parameters.depth);
+    whiteAIDepthLayout->addWidget(&whiteAIDepthSpinBox);
 
     blackAIDepthLayout->addWidget(new QLabel("Depth", blackPlayerSettingsWidget));
-    QSpinBox *blackAIDepthSpinBox = new QSpinBox(blackPlayerSettingsWidget);
-    blackAIDepthSpinBox->setMinimum(1);
-    blackAIDepthSpinBox->setValue(blackAI.parameters.depth);
-    blackAIDepthLayout->addWidget(blackAIDepthSpinBox);
+    blackAIDepthSpinBox.setParent(blackPlayerSettingsWidget);
+    blackAIDepthSpinBox.setMinimum(1);
+    blackAIDepthSpinBox.setValue(blackAI.parameters.depth);
+    blackAIDepthLayout->addWidget(&blackAIDepthSpinBox);
 
-    QObject::connect(whiteAIDepthSpinBox, &QSpinBox::valueChanged, this, &MainWindow::whiteAIDepthValueChanged);
-    QObject::connect(blackAIDepthSpinBox, &QSpinBox::valueChanged, this, &MainWindow::blackAIDepthValueChanged);
+    QObject::connect(&whiteAIDepthSpinBox, &QSpinBox::valueChanged, this, &MainWindow::whiteAIDepthValueChanged);
+    QObject::connect(&blackAIDepthSpinBox, &QSpinBox::valueChanged, this, &MainWindow::blackAIDepthValueChanged);
 
     whitePlayerSettingsWidgetLayout->addLayout(whiteAIDepthLayout);
     blackPlayerSettingsWidgetLayout->addLayout(blackAIDepthLayout);
@@ -96,19 +114,19 @@ MainWindow::MainWindow(QWidget *parent)
     QHBoxLayout *blackAICornerWeightLayout = new QHBoxLayout();
 
     whiteAICornerWeightLayout->addWidget(new QLabel("Corner Weight", whitePlayerSettingsWidget));
-    QSpinBox *whiteAICornerWeightSpinBox = new QSpinBox(whitePlayerSettingsWidget);
-    whiteAICornerWeightSpinBox->setMinimum(1);
-    whiteAICornerWeightSpinBox->setValue(whiteAI.parameters.cornerWeight);
-    whiteAICornerWeightLayout->addWidget(whiteAICornerWeightSpinBox);
+    whiteAICornerWeightSpinBox.setParent(whitePlayerSettingsWidget);
+    whiteAICornerWeightSpinBox.setMinimum(1);
+    whiteAICornerWeightSpinBox.setValue(whiteAI.parameters.cornerWeight);
+    whiteAICornerWeightLayout->addWidget(&whiteAICornerWeightSpinBox);
 
     blackAICornerWeightLayout->addWidget(new QLabel("Corner Weight", blackPlayerSettingsWidget));
-    QSpinBox *blackAICornerWeightSpinBox = new QSpinBox(blackPlayerSettingsWidget);
-    blackAICornerWeightSpinBox->setMinimum(1);
-    blackAICornerWeightSpinBox->setValue(blackAI.parameters.cornerWeight);
-    blackAICornerWeightLayout->addWidget(blackAICornerWeightSpinBox);
+    blackAICornerWeightSpinBox.setParent(blackPlayerSettingsWidget);
+    blackAICornerWeightSpinBox.setMinimum(1);
+    blackAICornerWeightSpinBox.setValue(blackAI.parameters.cornerWeight);
+    blackAICornerWeightLayout->addWidget(&blackAICornerWeightSpinBox);
 
-    QObject::connect(whiteAICornerWeightSpinBox, &QSpinBox::valueChanged, this, &MainWindow::whiteAICornerWeightValueChanged);
-    QObject::connect(blackAICornerWeightSpinBox, &QSpinBox::valueChanged, this, &MainWindow::blackAICornerWeightValueChanged);
+    QObject::connect(&whiteAICornerWeightSpinBox, &QSpinBox::valueChanged, this, &MainWindow::whiteAICornerWeightValueChanged);
+    QObject::connect(&blackAICornerWeightSpinBox, &QSpinBox::valueChanged, this, &MainWindow::blackAICornerWeightValueChanged);
 
     whitePlayerSettingsWidgetLayout->addLayout(whiteAICornerWeightLayout);
     blackPlayerSettingsWidgetLayout->addLayout(blackAICornerWeightLayout);
@@ -117,19 +135,19 @@ MainWindow::MainWindow(QWidget *parent)
     QHBoxLayout *blackAISquareWeightLayout = new QHBoxLayout();
 
     whiteAISquareWeightLayout->addWidget(new QLabel("Square Weight", whitePlayerSettingsWidget));
-    QSpinBox *whiteAISquareWeightSpinBox = new QSpinBox(whitePlayerSettingsWidget);
-    whiteAISquareWeightSpinBox->setMinimum(1);
-    whiteAISquareWeightSpinBox->setValue(whiteAI.parameters.squareWeight);
-    whiteAISquareWeightLayout->addWidget(whiteAISquareWeightSpinBox);
+    whiteAISquareWeightSpinBox.setParent(whitePlayerSettingsWidget);
+    whiteAISquareWeightSpinBox.setMinimum(1);
+    whiteAISquareWeightSpinBox.setValue(whiteAI.parameters.squareWeight);
+    whiteAISquareWeightLayout->addWidget(&whiteAISquareWeightSpinBox);
 
     blackAISquareWeightLayout->addWidget(new QLabel("Square Weight", blackPlayerSettingsWidget));
-    QSpinBox *blackAISquareWeightSpinBox = new QSpinBox(blackPlayerSettingsWidget);
-    blackAISquareWeightSpinBox->setMinimum(1);
-    blackAISquareWeightSpinBox->setValue(blackAI.parameters.squareWeight);
-    blackAISquareWeightLayout->addWidget(blackAISquareWeightSpinBox);
+    blackAISquareWeightSpinBox.setParent(blackPlayerSettingsWidget);
+    blackAISquareWeightSpinBox.setMinimum(1);
+    blackAISquareWeightSpinBox.setValue(blackAI.parameters.squareWeight);
+    blackAISquareWeightLayout->addWidget(&blackAISquareWeightSpinBox);
 
-    QObject::connect(whiteAISquareWeightSpinBox, &QSpinBox::valueChanged, this, &MainWindow::whiteAISquareWeightValueChanged);
-    QObject::connect(blackAISquareWeightSpinBox, &QSpinBox::valueChanged, this, &MainWindow::blackAISquareWeightValueChanged);
+    QObject::connect(&whiteAISquareWeightSpinBox, &QSpinBox::valueChanged, this, &MainWindow::whiteAISquareWeightValueChanged);
+    QObject::connect(&blackAISquareWeightSpinBox, &QSpinBox::valueChanged, this, &MainWindow::blackAISquareWeightValueChanged);
 
     whitePlayerSettingsWidgetLayout->addLayout(whiteAISquareWeightLayout);
     blackPlayerSettingsWidgetLayout->addLayout(blackAISquareWeightLayout);
@@ -197,6 +215,44 @@ void MainWindow::blackPlayerSelectionButtonClicked(QAbstractButton *button)
     else if (button->text() == "Human") {
         isBlackAI = false;
     }
+}
+
+void MainWindow::whiteAIDifficulyChanged(QString difficulty)
+{
+    if (difficulty == "Easy") {
+        whiteAI.setDifficulty(EASY);
+    }
+    else if (difficulty == "Medium") {
+        whiteAI.setDifficulty(MEDIUM);
+    }
+    else if (difficulty == "Hard") {
+        whiteAI.setDifficulty(HARD);
+    }
+    else if (difficulty == "Unbeatable") {
+        whiteAI.setDifficulty(UNBEATABLE);
+    }
+    whiteAIDepthSpinBox.setValue(whiteAI.parameters.depth);
+    whiteAICornerWeightSpinBox.setValue(whiteAI.parameters.cornerWeight);
+    whiteAISquareWeightSpinBox.setValue(whiteAI.parameters.squareWeight);
+}
+
+void MainWindow::blackAIDifficulyChanged(QString difficulty)
+{
+    if (difficulty == "Easy") {
+        blackAI.setDifficulty(EASY);
+    }
+    else if (difficulty == "Medium") {
+        blackAI.setDifficulty(MEDIUM);
+    }
+    else if (difficulty == "Hard") {
+        blackAI.setDifficulty(HARD);
+    }
+    else if (difficulty == "Unbeatable") {
+        blackAI.setDifficulty(UNBEATABLE);
+    }
+    blackAIDepthSpinBox.setValue(blackAI.parameters.depth);
+    blackAICornerWeightSpinBox.setValue(blackAI.parameters.cornerWeight);
+    blackAISquareWeightSpinBox.setValue(blackAI.parameters.squareWeight);
 }
 
 void MainWindow::whiteAIDepthValueChanged(int depth)

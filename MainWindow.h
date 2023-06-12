@@ -13,6 +13,7 @@
 #include <QSpinBox>
 #include <QCheckBox>
 #include <QPushButton>
+#include <QComboBox>
 
 #include <AI.h>
 #include <Board.h>
@@ -40,6 +41,18 @@ class MainWindow : public QMainWindow
 
     QDockWidget gameControlScoreDockWidget;
 
+    QSpinBox whiteAIDepthSpinBox;
+
+    QSpinBox blackAIDepthSpinBox;
+
+    QSpinBox whiteAICornerWeightSpinBox;
+
+    QSpinBox blackAICornerWeightSpinBox;
+
+    QSpinBox whiteAISquareWeightSpinBox;
+
+    QSpinBox blackAISquareWeightSpinBox;
+
     QLabel whiteScore;
 
     QLabel blackScore;
@@ -55,6 +68,10 @@ public slots:
     void whitePlayerSelectionButtonClicked(QAbstractButton *button);
 
     void blackPlayerSelectionButtonClicked(QAbstractButton *button);
+
+    void whiteAIDifficulyChanged(QString difficulty);
+
+    void blackAIDifficulyChanged(QString difficulty);
 
     void whiteAIDepthValueChanged(int depth);
 

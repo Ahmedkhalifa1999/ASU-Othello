@@ -82,14 +82,20 @@ void AI::setDifficulty(Difficulty difficulty)
 {
     switch(difficulty) {
     case EASY:
+        parameters.depth = 1;
         break;
     case MEDIUM:
+        parameters.depth = 2;
         break;
     case HARD:
+        parameters.depth = 3;
         break;
     case UNBEATABLE:
+        parameters.depth = 4;
         break;
     }
+    parameters.cornerWeight = 1;
+    parameters.squareWeight = 1;
 }
 
 void AI::deleteTree(Node* node)
