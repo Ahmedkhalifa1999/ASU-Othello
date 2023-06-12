@@ -122,13 +122,26 @@ void AI::setIterativeDeepening(bool iterativeDeepening)
     parameters.iterativeDeepening = iterativeDeepening;
 }
 
+void deleteTree(Node* node)
+{
+    if (node == NULL) return;
+
+    for(auto child: node->children)
+    {
+        deleteTree(child);
+    }
+
+    delete node;
+}
+
 void AI::computeNextMove()
 {
     Move bestMove;
 
     // construct tree
-    Node* parentNode = new Node(/board,/color, -INFINITY, INFINITY, 0);
-    treeConstruct(parentNode,/depth);
+    //Node* parentNode = new Node(board.getBoard(),, -INFINITY, INFINITY, 0);
+    Node* parentNode = new Node();
+    treeConstruct(parentNode,parameters->);
     //call minmax
     minimax(parentNode,true,/depth);
     //get the best move
@@ -143,7 +156,7 @@ void AI::computeNextMove()
      	}   
     }
     //delete tree
-
+    deleteTree(parentNode);
     emit nextMoveComputed(bestMove);
 }
 
@@ -155,7 +168,8 @@ void AI::treeConstruct(Node* currentNode,int depth){
     for(auto move: validMoves){
         Board StateCpy = currentNode->State;
         StateCpy.doMove(move,currentNode->color);
-        currentNode->children.push_back(new Node(StateCpy,currentNode->color,0,0,currentNode->Score));
+        currentNode->children.push_back(new Node(StateCpy,currentNode->color,0,0,-INFINITY,INFINITY,currentNode->Score));
+        //Board State, PlayerColor color, int row, int column, int alpha, int beta, double Score
         treeConstruct(currentNode->children.back(),depth - 1);
     }
 }

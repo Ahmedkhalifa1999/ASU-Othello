@@ -1,5 +1,10 @@
 #include "Node.h"
 
+Node::Node()
+{
+
+}
+
 Node::Node(Board State, PlayerColor color, int row, int column, int alpha, int beta, double Score)
 {
 
@@ -11,3 +16,5 @@ Node::Node(Board State, PlayerColor color, int row, int column, int alpha, int b
     this->beta = beta;
     this->Score = Score;
 }
+
+
