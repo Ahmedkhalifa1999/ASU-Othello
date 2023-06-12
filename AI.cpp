@@ -122,7 +122,7 @@ void AI::setIterativeDeepening(bool iterativeDeepening)
     parameters.iterativeDeepening = iterativeDeepening;
 }
 
-void deleteTree(Node* node)
+void AI::deleteTree(Node* node)
 {
     if (node == NULL) return;
 
@@ -173,7 +173,7 @@ void AI::treeConstruct(Node* currentNode,int depth){
     }
 }
 
-int AI:: minimax(Node *currentNode,bool Max,int depth){
+int AI::minimax(Node *currentNode,bool Max,int depth){
     if(depth == 0)
         return getBoardScore(currentNode->State);
 

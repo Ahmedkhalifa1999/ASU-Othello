@@ -60,6 +60,9 @@ class AI : public QObject
 
     void treeConstruct(Node* currentNode,int depth);
 
+    void deleteTree(Node* node);
+
+    int minimax(Node *currentNode,bool Max,int depth);
 
 public:
     /**
@@ -90,8 +93,6 @@ public slots:
      * @brief starts computing the next move
      */
     void computeNextMove();
-    void deleteTree(Node* node);
-    int minimax(Node *currentNode,bool Max,int depth);
 
 signals:
     /**

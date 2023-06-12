@@ -9,8 +9,8 @@ class Node{
         PlayerColor color;
         vector<Node*> children;
         Move moveDone;
-        int alpha = -INFINITY;
-        int beta = INFINITY;
+        int alpha = INT_MIN;
+        int beta = INT_MAX;
         double Score;
 
         Node();

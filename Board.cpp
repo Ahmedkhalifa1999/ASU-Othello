@@ -385,18 +385,18 @@ bool Board::doMove(Move move, PlayerColor player)
     return valid;
 }
 
-PlayerColor Board::getCurrentPlayer()
+PlayerColor Board::getCurrentPlayer() const
 {
     return currentPlayer;
 }
 
-int Board::countDisks(BoardSquareState diskType)
+int Board::countDisks(BoardSquareState diskType) const
 {
-    int count = 0;
-    for (auto row: board) {
-        for (auto cell: row) {
-            if (cell == diskType) count++;
+        int count = 0;
+        for (auto row: board) {
+            for (auto cell: row) {
+                if (cell == diskType) count++;
+            }
         }
-    }
-    return count;
+        return count;
 }
