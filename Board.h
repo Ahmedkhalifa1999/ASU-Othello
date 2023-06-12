@@ -36,6 +36,8 @@ class Board
 
     bool isValidMove(unsigned int row, unsigned int column, PlayerColor player);
 
+    PlayerColor currentPlayer = BLACK_PLAYER;
+
 public:
 
     /**
