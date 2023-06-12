@@ -137,7 +137,7 @@ void AI::treeConstruct(Node* currentNode,int depth){
     for(auto move: validMoves){
         Board StateCpy = currentNode->State;
         StateCpy.doMove(move,currentNode->color);
-        currentNode->children.push_back(new Node(StateCpy,currentNode->color,0,0,INT_MIN,INT_MAX,currentNode->Score));
+        currentNode->children.push_back(new Node(StateCpy,currentNode->color,move.row,move.column,INT_MIN,INT_MAX,currentNode->Score));
         //Board State, PlayerColor color, int row, int column, int alpha, int beta, double Score
         treeConstruct(currentNode->children.back(),depth - 1);
     }
