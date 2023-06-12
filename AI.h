@@ -10,9 +10,6 @@ typedef struct {
     int depth;
     int cornerWeight;
     int squareWeight;
-    bool alphaBetaPruning;
-    bool iterativeDeepening;
-    int timeSearchLimit;
 } AlgorithmParameters;
 
 typedef enum {
@@ -37,32 +34,60 @@ class AI : public QObject
     const Board &board;
 
     /**
-     * @brief search algorith parameters
-     */
-    AlgorithmParameters parameters;
-
-    /**
      * @brief calculates the score for the passed board using heuristics
-     * @param board: the board for calcualting score
+     * @param board the board for calcualting score
      * @return the score for the passed board
      */
     int getBoardScore(const Board &board);
 
-    int corners(const Board& board, PlayerColor player);
-
+    /**
+     * @brief corners
+     * @param board
+     * @param player
+     * @return
+     */
     PlayerColor getOpponent(PlayerColor player);
 
+    /**
+     * @brief corners
+     * @param board
+     * @param player
+     * @return
+     */
+    int corners(const Board& board, PlayerColor player);
+
+    /**
+     * @brief corners
+     * @param board
+     * @param player
+     * @return
+     */
     int squareWeights(const Board& board, PlayerColor player);
 
-    int cornerWeight;
-
-    int squareWeight;
-
+    /**
+     * @brief corners
+     * @param board
+     * @param player
+     * @return
+     */
     void treeConstruct(Node* currentNode,int depth);
 
-    void deleteTree(Node* node);
-
+    /**
+     * @brief corners
+     * @param board
+     * @param player
+     * @return
+     */
     int minimax(Node *currentNode,bool Max,int depth);
+
+
+    /**
+     * @brief corners
+     * @param board
+     * @param player
+     * @return
+     */
+    void deleteTree(Node* node);
 
 public:
     /**
@@ -78,15 +103,10 @@ public:
      */
     void setDifficulty(Difficulty difficulty);
 
-    /* Implement setters and getters for all the parameters */
-    unsigned int getDepth();
-    void setDepth(unsigned int depth);
-
-    bool getAlphaBetaPruning();
-    void setAlphaBetaPruning(bool alphaBetaPruning);
-
-    bool getIterativeDeepening();
-    void setIterativeDeepening(bool iterativeDeepening);
+    /**
+     * @brief search algorith parameters
+     */
+    AlgorithmParameters parameters;
 
 public slots:
     /**

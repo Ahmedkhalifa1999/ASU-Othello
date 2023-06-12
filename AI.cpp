@@ -2,8 +2,8 @@
 
 int AI::getBoardScore(const Board &board)
 {
-    int cornerScore = AI::corners(board, player) * cornerWeight;
-    int squareScore = AI::squareWeights(board, player) * squareWeight;
+    int cornerScore = AI::corners(board, player) * parameters.cornerWeight;
+    int squareScore = AI::squareWeights(board, player) * parameters.squareWeight;
 
     return cornerScore + squareScore;
 }
@@ -90,36 +90,6 @@ void AI::setDifficulty(Difficulty difficulty)
     case UNBEATABLE:
         break;
     }
-}
-
-unsigned int AI::getDepth()
-{
-    return parameters.depth;
-}
-
-void AI::setDepth(unsigned int depth)
-{
-    parameters.depth = depth;
-}
-
-bool AI::getAlphaBetaPruning()
-{
-    return parameters.alphaBetaPruning;
-}
-
-void AI::setAlphaBetaPruning(bool alphaBetaPruning)
-{
-    parameters.alphaBetaPruning = alphaBetaPruning;
-}
-
-bool AI::getIterativeDeepening()
-{
-    return parameters.iterativeDeepening;
-}
-
-void AI::setIterativeDeepening(bool iterativeDeepening)
-{
-    parameters.iterativeDeepening = iterativeDeepening;
 }
 
 void AI::deleteTree(Node* node)
