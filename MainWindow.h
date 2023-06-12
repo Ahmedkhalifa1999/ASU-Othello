@@ -62,14 +62,6 @@ public slots:
 
     void blackAIDepthValueChanged(int i);
 
-//    void whiteAIAlphaBetaPruningStateChanged(int state);
-
-//    void blackAIAlphaBetaPruningStateChanged(int state);
-
-//    void whiteAIIterativeDeepeningStateChanged(int state);
-
-//    void blackAIIterativeDeepeningStateChanged(int state);
-
     void restartButtonClicked(bool checked);
 
     void humanPlayed(Move move);
