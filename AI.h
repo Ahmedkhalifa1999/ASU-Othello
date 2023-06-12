@@ -7,7 +7,12 @@
 #include <Node.h>
 
 typedef struct {
-
+    int depth;
+    int cornerWeight;
+    int squareWeight;
+    bool alphaBetaPruning;
+    bool iterativeDeepening;
+    int timeSearchLimit;
 } AlgorithmParameters;
 
 typedef enum {

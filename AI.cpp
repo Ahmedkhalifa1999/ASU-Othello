@@ -139,11 +139,12 @@ void AI::computeNextMove()
     Move bestMove;
 
     // construct tree
-    //Node* parentNode = new Node(board.getBoard(),, -INFINITY, INFINITY, 0);
-    Node* parentNode = new Node();
-    treeConstruct(parentNode,parameters->);
+    //Board State, PlayerColor color, int row, int column, int alpha, int beta, double Score
+    Node* parentNode = new Node(board,board.getCurrentPlayer(),0,0, -INFINITY, INFINITY, 0);
+    //Node* parentNode = new Node();
+    treeConstruct(parentNode,parameters.depth);
     //call minmax
-    minimax(parentNode,true,/depth);
+    minimax(parentNode,true,parameters.depth);
     //get the best move
     Move nextMove;
     int bestScore = parentNode->children[0]->Score;
@@ -157,7 +158,7 @@ void AI::computeNextMove()
     }
     //delete tree
     deleteTree(parentNode);
-    emit nextMoveComputed(bestMove);
+    emit nextMoveComputed(nextMove);
 }
 
 void AI::treeConstruct(Node* currentNode,int depth){
