@@ -8,9 +8,9 @@ class Node{
         //bool isRoot;
         PlayerColor color;
         vector<Node*> children;
-        int alpha;
-        int beta;
-        double Score = 0;
+        int alpha = -INFINITY;
+        int beta = INFINITY;
+        double Score;
 
         Node(Board State,PlayerColor color,int alpha,int beta,double Score);
 }; 
