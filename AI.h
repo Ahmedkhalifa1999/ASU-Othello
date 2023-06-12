@@ -93,6 +93,8 @@ signals:
      * @param next move
      */
     void nextMoveComputed(Move move);
+
+    int minimax(Node *currentNode,bool Max,int depth);
 };
 
 #endif // AI_H
