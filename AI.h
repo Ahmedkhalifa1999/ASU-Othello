@@ -7,7 +7,12 @@
 #include <Node.h>
 
 typedef struct {
-
+    int depth;
+    int cornerWeight;
+    int squareWeight;
+    bool alphaBetaPruning;
+    bool iterativeDeepening;
+    int timeSearchLimit;
 } AlgorithmParameters;
 
 typedef enum {
@@ -41,7 +46,7 @@ class AI : public QObject
      * @param board: the board for calcualting score
      * @return the score for the passed board
      */
-    double getBoardScore(const Board &board);
+    int getBoardScore(const Board &board);
 
     int corners(const Board& board, PlayerColor player);
 

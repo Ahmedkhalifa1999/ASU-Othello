@@ -1,6 +1,6 @@
 #include "AI.h"
 
-double AI::getBoardScore(const Board &board)
+int AI::getBoardScore(const Board &board)
 {
     int cornerScore = AI::corners(board, player) * cornerWeight;
     int squareScore = AI::squareWeights(board, player) * squareWeight;
@@ -61,12 +61,15 @@ int AI::squareWeights(const Board& board, PlayerColor player) {
 
     auto boardVector = board.getBoard();
 
+    BoardSquareState playerDisk = (player == WHITE_PLAYER)? WHITE_DISK:BLACK_DISK;
+    BoardSquareState opponentDisk = (player == BLACK_PLAYER)? BLACK_DISK:WHITE_DISK;
+
     int score = 0;
     for (int row = 0; row < 8; row++) {
         for (int col = 0; col < 8; col++) {
-            if (boardVector[row][col] == player) {
+            if (boardVector[row][col] == playerDisk) {
                 score += squareWeights[row][col];
-            } else if (boardVector[row][col] == getOpponent(player)) {
+            } else if (boardVector[row][col] == opponentDisk) {
                 score -= squareWeights[row][col];
             }
         }
@@ -77,37 +80,46 @@ int AI::squareWeights(const Board& board, PlayerColor player) {
 
 void AI::setDifficulty(Difficulty difficulty)
 {
-
+    switch(difficulty) {
+    case EASY:
+        break;
+    case MEDIUM:
+        break;
+    case HARD:
+        break;
+    case UNBEATABLE:
+        break;
+    }
 }
 
 unsigned int AI::getDepth()
 {
-
+    return parameters.depth;
 }
 
 void AI::setDepth(unsigned int depth)
 {
-
+    parameters.depth = depth;
 }
 
 bool AI::getAlphaBetaPruning()
 {
-
+    return parameters.alphaBetaPruning;
 }
 
 void AI::setAlphaBetaPruning(bool alphaBetaPruning)
 {
-
+    parameters.alphaBetaPruning = alphaBetaPruning;
 }
 
 bool AI::getIterativeDeepening()
 {
-
+    return parameters.iterativeDeepening;
 }
 
 void AI::setIterativeDeepening(bool iterativeDeepening)
 {
-
+    parameters.iterativeDeepening = iterativeDeepening;
 }
 
 void AI::computeNextMove()
@@ -134,7 +146,7 @@ int AI::minimax(Node *currentNode,bool Max,int alpha,int beta,int depth){
 
     if(Max)
     {
-        int maxValue = -INFINITY;
+        int maxValue = INT_MIN;
         for(auto child: currentNode->children)
         {
             int eval = minimax(child,false,alpha,beta,depth-1);
@@ -148,7 +160,7 @@ int AI::minimax(Node *currentNode,bool Max,int alpha,int beta,int depth){
     }
     else
     {
-        int minValue = INFINITY;
+        int minValue = INT_MAX;
         for(auto child: currentNode->children)
         {
             int eval = minimax(child,true,alpha,beta,depth-1);

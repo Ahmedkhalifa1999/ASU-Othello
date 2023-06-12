@@ -42,6 +42,10 @@ class MainWindow : public QMainWindow
 
     BoardWidget boardWidget;
 
+    QLabel whiteScore;
+
+    QLabel blackScore;
+
 public:
     MainWindow(QWidget *parent = nullptr);
 
@@ -67,6 +71,8 @@ public slots:
     void blackAIIterativeDeepeningStateChanged(int state);
 
     void restartButtonClicked(bool checked);
+
+    void humanPlayed(Move move);
 
 signals:
     void whiteComputeNextMove();

@@ -27,7 +27,6 @@ void BoardWidget::paintEvent(QPaintEvent *event)
     //Define valid moves brush
     QBrush transparent = QBrush(QColor::fromRgb(0,0,0,20),Qt::SolidPattern);
 
-
     //Set pen
     QPen pen = QPen(Qt::black,0);
     painter.setPen(pen);
@@ -58,9 +57,6 @@ void BoardWidget::paintEvent(QPaintEvent *event)
     painter.drawLine(QLine(QPoint(6,0),QPoint(6,8)));
     painter.drawLine(QLine(QPoint(7,0),QPoint(7,8)));
 
-
-
-
     //Print Board
     for(int row=0;row<8;row++)
     {
@@ -69,29 +65,25 @@ void BoardWidget::paintEvent(QPaintEvent *event)
             if(boardvector[row][col] == WHITE_DISK)
             {
                 painter.setBrush(whiteBrush);
-                painter.drawEllipse(QRectF(QPointF(row,col),QPointF(row+1,col+1)));
+                painter.drawEllipse(QRectF(QPointF(col,row),QPointF(col+1,row+1)));
             }
             else if(boardvector[row][col] == BLACK_DISK)
             {
                 painter.setBrush(blackBrush);
-                painter.drawEllipse(QRectF(QPointF(row,col),QPointF(row+1,col+1)));
+                painter.drawEllipse(QRectF(QPointF(col,row),QPointF(col+1,row+1)));
             }
         }
 
     }
 
-
     //Print Possible Valid Moves
-    moves = board.getValidMoves(BLACK_PLAYER);
+    moves = board.getValidMoves(board.getCurrentPlayer());
     for(auto move : moves)
     {
         painter.setBrush(transparent);
-        painter.drawEllipse(QRectF(QPointF(move.row,move.column),QPointF(move.row+1,move.column+1)));
+        painter.drawEllipse(QRectF(QPointF(move.column,move.row),QPointF(move.column+1,move.row+1)));
 
     }
-
-
-
 
 }
 
@@ -133,6 +125,9 @@ void BoardWidget::mousePressEvent(QMouseEvent *event)
     else if((p.x() >=701) && (p.x()<=801)){
         column=7;
     }
+    else {
+        column = 8;
+    }
 
     // Get Row
 
@@ -160,18 +155,17 @@ void BoardWidget::mousePressEvent(QMouseEvent *event)
     else if((p.y() >=701) && (p.y()<=801)){
         row=7;
     }
+    else {
+        row = 8;
+    }
 
     move.row = row;
 
     move.column = column;
 
-    // 2. Get the color of the player who wanted to do the move
+    PlayerColor currentPlayer = board.getCurrentPlayer();
 
-
-
-    // 3. do the desired moved
- 
-    //   doMove( move, player);
-
-
+    if (board.doMove(move, currentPlayer)) {
+        emit humanPlayed(move);
+    }
 }

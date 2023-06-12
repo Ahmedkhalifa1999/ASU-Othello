@@ -128,11 +128,22 @@ MainWindow::MainWindow(QWidget *parent)
     gameControlScoreWidgetLayout->addLayout(whitePlayerScoreLayout);
     gameControlScoreWidgetLayout->addWidget(restartGameButton);
     gameControlScoreWidgetLayout->addLayout(blackPlayerScoreLayout);
+
+    whiteScore.setText("White Player: 0");
+    blackScore.setText("Black Score: 0");
+
+    whitePlayerScoreLayout->addWidget(&whiteScore);
+    blackPlayerScoreLayout->addWidget(&blackScore);
+
+    QObject::connect(&boardWidget, &BoardWidget::humanPlayed, this, &MainWindow::humanPlayed);
 }
 
 void MainWindow::whiteNextMoveComputed(Move move)
 {
     mainBoard.doMove(move, WHITE_PLAYER);
+    whiteScore.setText("White Score: " + QString::number(mainBoard.countDisks(WHITE_DISK)));
+    blackScore.setText("Black Score: " + QString::number(mainBoard.countDisks(BLACK_DISK)));
+    boardWidget.update();
     if (isBlackAI) {
         emit blackComputeNextMove();
     }
@@ -141,6 +152,9 @@ void MainWindow::whiteNextMoveComputed(Move move)
 void MainWindow::blackNextMoveComputed(Move move)
 {
     mainBoard.doMove(move, BLACK_PLAYER);
+    whiteScore.setText("White Score: " + QString::number(mainBoard.countDisks(WHITE_DISK)));
+    blackScore.setText("Black Score: " + QString::number(mainBoard.countDisks(BLACK_DISK)));
+    boardWidget.update();
     if (isWhiteAI) {
         emit whiteComputeNextMove();
     }
@@ -220,7 +234,30 @@ void MainWindow::restartButtonClicked(bool checked)
 {
     Q_UNUSED(checked)
     mainBoard = Board();
+
+    whiteScore.setText("White Score: " + QString::number(mainBoard.countDisks(WHITE_DISK)));
+    blackScore.setText("Black Score: " + QString::number(mainBoard.countDisks(BLACK_DISK)));
     boardWidget.update();
+}
+
+void MainWindow::humanPlayed(Move move)
+{
+    PlayerColor currentPlayer = mainBoard.getCurrentPlayer();
+
+    mainBoard.doMove(move, currentPlayer);
+
+    whiteScore.setText("White Score: " + QString::number(mainBoard.countDisks(WHITE_DISK)));
+    blackScore.setText("Black Score: " + QString::number(mainBoard.countDisks(BLACK_DISK)));
+    boardWidget.update();
+
+    PlayerColor nextPlayer = (currentPlayer == WHITE_PLAYER)? BLACK_PLAYER:WHITE_PLAYER;
+
+    if (nextPlayer == WHITE_PLAYER && isWhiteAI) {
+        emit whiteComputeNextMove();
+    }
+    else if (nextPlayer == BLACK_PLAYER && isBlackAI) {
+        emit blackComputeNextMove();
+    }
 }
 
 

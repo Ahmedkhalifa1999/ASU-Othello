@@ -1,6 +1,6 @@
 #include "Board.h"
 
-std::vector<Move> Board::getValidMovesAroundDisk(unsigned int row, unsigned int column)
+std::vector<Move> Board::getValidMovesAroundDisk(int row, int column)
 {
     std::vector<Move> validMoves;
 
@@ -122,11 +122,6 @@ std::vector<Move> Board::getValidMovesAroundDisk(unsigned int row, unsigned int 
     return validMoves;
 }
 
-bool Board::isValidMove(unsigned int row, unsigned int column, PlayerColor player)
-{
-    return false;
-}
-
 Board::Board()
 {
     //Initialize with 4 disks (2 white & 2 black)
@@ -144,10 +139,6 @@ std::vector<Move> Board::getValidMoves(PlayerColor player)
 
     for (unsigned int i = 0; i < 8; i++) {
         for (unsigned int j = 0; j < 8; j++) {
-//            if (isValidMove(i, j, player)) {
-//                validMoves.push_back({i, j});
-//            }
-
             if (board[i][j] == targetDisk) {
                 std::vector<Move> validMovesAroundDisk = getValidMovesAroundDisk(i, j);
                 validMoves.insert(validMoves.end(), validMovesAroundDisk.begin(), validMovesAroundDisk.end());
@@ -386,7 +377,26 @@ bool Board::doMove(Move move, PlayerColor player)
                 }
             }
         }
+
+        if (currentPlayer == WHITE_PLAYER) currentPlayer = BLACK_PLAYER;
+        else currentPlayer = WHITE_PLAYER;
     }
 
     return valid;
+}
+
+PlayerColor Board::getCurrentPlayer()
+{
+    return currentPlayer;
+}
+
+int Board::countDisks(BoardSquareState diskType)
+{
+    int count = 0;
+    for (auto row: board) {
+        for (auto cell: row) {
+            if (cell == diskType) count++;
+        }
+    }
+    return count;
 }

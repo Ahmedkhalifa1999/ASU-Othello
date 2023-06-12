@@ -22,7 +22,7 @@ int minimax (Node* currentNode,bool Max,int alpha,int beta,int depth){
 	
 	if(Max)
 	{
-        int maxValue = -INFINITY;
+        int maxValue = INT_MAX;
         for(auto child: currentNode->children)
 		{
             int eval = minimax(child,false,alpha,beta,depth-1);
@@ -36,7 +36,7 @@ int minimax (Node* currentNode,bool Max,int alpha,int beta,int depth){
 	}
 	else
 	{
-        int minValue = INFINITY;
+        int minValue = INT_MIN;
         for(auto child: currentNode->children)
 		{
             int eval = minimax(child,true,alpha,beta,depth-1);

@@ -22,7 +22,7 @@ public:
     void mousePressEvent(QMouseEvent *event) override;
 
 signals:
-
+    void humanPlayed(Move move);
 };
 
 #endif // BOARDWIDGET_H
