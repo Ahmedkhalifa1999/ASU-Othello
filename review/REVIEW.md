@@ -4,7 +4,8 @@ Reviewed at commit `31da9f8` ("Final Commit 8"), branch `main`. The project is a
 (Reversi) game with a minimax AI, written by a student team of about eight people over roughly three weeks in
 May and June 2023 (11 git identities, several of them the same person). This review covers the build, the rules engine, the AI, the GUI, and code quality.
 Every claim below that is marked **[verified]** was reproduced in a fresh environment; the exact
-commands and the probe programs used are in `harness/`.
+commands and the probe programs used are in `harness/`. The remediation plan is in
+[`FIX_PLAN.md`](FIX_PLAN.md).
 
 ## How the review was done
 
